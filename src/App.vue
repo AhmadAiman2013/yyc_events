@@ -9,4 +9,5 @@
 <script setup lang="ts">
 import WebinarPage from './components/WebinarPage.vue';
 
+
 </script>
