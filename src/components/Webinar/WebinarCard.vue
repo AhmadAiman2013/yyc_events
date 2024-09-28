@@ -1,18 +1,24 @@
 <template>
   <v-container>
-    <v-row v-for="n in 10" :key="n">
-      <v-col v-for="n in 2" :key="n" cols="6">
-        <v-card variant="tonal" min-height="200" :elevation="9">
-          <v-card-item>
-            <v-card-title>this is title</v-card-title>
-            <v-card-subtitle>this is date</v-card-subtitle>
-          </v-card-item>
-          <v-card-text>
-            this is text
-          </v-card-text>
-        </v-card>
+    <v-row >
+      <v-col v-for="n in 20" :key="n" cols="6" class="mb-3" >
+        <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+          <v-skeleton-loader :loading="isLoading" height="200">
+            <v-responsive>
+              <v-card :title="n" subtitle="date" text="description" variant="tonal" :elevation="9"
+                style="min-height: 200px;" cover>
+              </v-card>
+            </v-responsive>
+          </v-skeleton-loader>
+        </v-lazy>
       </v-col>
-
     </v-row>
+
+   
   </v-container>
 </template>
+
+
+<script setup lang="ts">
+let isLoading = false
+</script>
