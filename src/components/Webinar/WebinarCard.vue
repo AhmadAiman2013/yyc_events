@@ -4,7 +4,7 @@
 
       <v-col cols="6" class="d-flex align-center">
         <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
-        <v-btn @click="clearSearch" class="ml-2">Close</v-btn>
+        <v-btn @click="clearSearch" class="ml-2">Clear</v-btn>
       </v-col>
 
       <v-col cols="auto" class="d-flex align-center">
@@ -93,15 +93,17 @@ const filteredAndSortedItems = computed(() => {
     result = result.filter(item =>
       item.title.toLowerCase().includes(filterName.value.toLowerCase())
     );
+    currentPage.value = 1
   }
 
- 
+
   if (sortOrder.value) {
     result.sort((a, b) => {
       const dateA = parseDateString(a.date);
       const dateB = parseDateString(b.date);
       return sortOrder.value === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
     });
+    currentPage.value = 1
   }
 
   return result;
