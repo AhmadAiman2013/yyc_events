@@ -67,6 +67,7 @@ import { ref, computed, watch } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { useDisplay } from 'vuetify';
 
+
 interface EventType {
   id: string;
   title: string;

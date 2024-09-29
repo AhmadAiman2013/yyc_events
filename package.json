@@ -9,6 +9,7 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@tanstack/vue-query": "^5.56.2",
+    "@unhead/vue": "^1.11.6",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vuetify": "^3.6.11"

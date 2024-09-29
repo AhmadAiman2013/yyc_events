@@ -7,9 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Landingpage: typeof import('./src/components/landingpage.vue')['default']
-    LandingPage: typeof import('./src/components/LandingPage.vue')['default']
     WebinarCard: typeof import('./src/components/Webinar/WebinarCard.vue')['default']
     WebinarPage: typeof import('./src/components/WebinarPage.vue')['default']
   }
