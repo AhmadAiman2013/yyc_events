@@ -16,6 +16,7 @@ import { createApp } from 'vue'
 import { createHead } from '@unhead/vue'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import router from './route'
+import VueGtag  from 'vue-gtag'
 
 
 const app = createApp(App)
@@ -27,5 +28,11 @@ registerPlugins(app)
 app.use(head)
 app.use(VueQueryPlugin)
 app.use(router)
+app.use(VueGtag, {
+  config: {
+    id: 'G-KK1953NJDK'
+  },
+  router
+})
 app.mount('#app')
 
