@@ -1,22 +1,28 @@
 <template>
   <v-app>
-    <v-main style="min-height: 300px;">
-      <WebinarPage />
+    <v-main style="min-height: 300px;" class="text-deep-purple-lighten-1">
+      <div class="d-flex justify-center pa-1 mt-3">
+        <RouterLink to="/" >
+          <h1 class="text-md-h3 text-h4 text-center">Webinar and Courses</h1>
+        </RouterLink>
+      </div>
+      <RouterView />
     </v-main>
+    <VueQueryDevtools />
   </v-app>
 </template>
 
 <script setup lang="ts">
-import WebinarPage from './components/WebinarPage.vue';
 import { useSeoMeta } from '@unhead/vue';
 import { useHead } from '@unhead/vue';
 import logoImage from '@/assets/logo.jpg'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 
 
 useHead({
   title: 'List of upcoming courses and Webinars',
   meta: [
-  { name: 'description', content: 'Explore our upcoming courses and webinars to enhance your skills.' },
+    { name: 'description', content: 'Explore our upcoming courses and webinars to enhance your skills.' },
     { property: 'og:title', content: 'Upcoming Courses and Webinars' },
     { property: 'og:description', content: 'Join us for engaging courses and webinars.' },
     { property: 'og:type', content: 'website' },
@@ -53,7 +59,18 @@ useSeoMeta({
   twitterImage: logoImage,
 
 });
-
-
-
 </script>
+
+<style>
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+a:active, a:focus, a:visited {
+  color: inherit;         /* Inherit color for all states */
+  text-decoration: none;  /* Keep no underline in any state */
+  outline: none;          /* Ensure no outline shows on focus */
+}
+</style>

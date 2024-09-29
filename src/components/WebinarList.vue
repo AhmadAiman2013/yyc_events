@@ -33,59 +33,79 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if="paginatedItems.length !== 0">
       <v-col v-for="(item) in paginatedItems" :key="item.id" cols="12" md="6" class="mb-3">
         <v-lazy :min-height="200" :options="{ threshold: 0.5 }" transition="fade-transition">
-          <v-card variant="tonal" :elevation="9"
-            style="min-height: 200px;" cover>
+          <v-hover
+          v-slot="{ isHovering, props }"
+          close-delay="200"
+          >
+            <v-card
+              variant="tonal"
+              :elevation="9"
+              :style="{
+                minHeight: '200px',
+                backgroundColor: isHovering ? '#7E57C2' : 'inherit'
+              }"
+              cover
+              :class="{ 'on-hover': isHovering }"
+              v-bind="props"
+              @click="redirectToWebinar(item.id)"
+            >
             <v-card-item>
-              <v-card-title>
+              <v-card-title :style="{ color : isHovering ? '#EDE7F6' : 'inherit' }">
                 <h2 class="text-md-h6 text-wrap text-h6">{{ item.title }}</h2>
               </v-card-title>
-              <v-card-subtitle>
+              <v-card-subtitle :style="{ color : isHovering ? '#EDE7F6' : 'inherit' }">
                 <p>{{ item.date }}</p>
               </v-card-subtitle>
             </v-card-item>
-            <v-card-text>
+            <v-card-text class="text-black">
               <p>{{ item.description }}</p>
             </v-card-text>
           </v-card>
+        </v-hover>
+
         </v-lazy>
       </v-col>
+    </v-row>
+
+    <v-row v-else-if="paginatedItems.length == 0 && isPending">
       <v-col v-for="n in 4" :key="n" cols="12" md="6" class="mb-3" v-show="isPending">
         <v-skeleton-loader height="200" />
       </v-col>
     </v-row>
-    <v-pagination aria-label="Pagination control for navigation system" class="mb-2" v-show="!isPending" v-model="currentPage" :length="totalPages" :total-visible="4"
+
+    <v-row v-else>
+      <v-col cols="12">
+        <v-sheet min-height="200" class="d-flex justify-center align-center">
+          No data available
+        </v-sheet>
+      </v-col>
+    </v-row>
+
+    <v-pagination v-show="!isPending && paginatedItems.length !== 0" aria-label="Pagination control for navigation system" class="mb-2"  v-model="currentPage" :length="totalPages" :total-visible="4"
       :size="paginationSize" @update:model-value="scrollToTop" />
+
   </v-container>
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { useDisplay } from 'vuetify';
+import { EventType } from '@/types/WebinarSchema';
+import { APIResponse } from '@/types/WebinarSchema';
+import { useRouter } from 'vue-router';
 
 
-interface EventType {
-  id: string;
-  title: string;
-  date: string;
-  description: string;
-}
-
-interface APIResponse {
-  data?: EventType[];
-  error?: string;
-}
-
-const fetchedItems = ref<EventType[]>([]);
 const { name } = useDisplay();
 const itemsPerPage = 10;
 const currentPage = ref(1);
 const sortOrder = ref('');
 const filterName = ref('');
+const router = useRouter()
 
 const { data, isPending } = useQuery<APIResponse>({
   queryKey: ['events'],
@@ -94,11 +114,11 @@ const { data, isPending } = useQuery<APIResponse>({
     const data: EventType[] = await response.json();
     return { data };
   },
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
+  refetchOnReconnect: true,
 });
 
-watch(data, (newData) => {
-  fetchedItems.value = newData?.data ?? [];
-});
 
 const totalPages = computed(() => {
   return Math.ceil(filteredAndSortedItems.value.length / itemsPerPage);
@@ -115,7 +135,7 @@ const parseDateString = (dateString: string) => {
 };
 
 const filteredAndSortedItems = computed(() => {
-  let result = [...fetchedItems.value];
+  let result = data.value?.data ?? []
 
 
   if (filterName.value) {
@@ -151,4 +171,9 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+const redirectToWebinar = (id : string) => {
+  router.push({name: 'WebinarView', params:{ id }})
+}
 </script>
+
+

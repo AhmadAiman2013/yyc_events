@@ -7,7 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     WebinarCard: typeof import('./src/components/Webinar/WebinarCard.vue')['default']
+    WebinarHome: typeof import('./src/components/WebinarHome.vue')['default']
+    WebinarList: typeof import('./src/components/WebinarList.vue')['default']
+    WebinarMain: typeof import('./src/components/WebinarMain.vue')['default']
     WebinarPage: typeof import('./src/components/WebinarPage.vue')['default']
+    WebinarView: typeof import('./src/components/WebinarView.vue')['default']
   }
 }
