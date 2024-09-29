@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-center pa-1 mt-3">
-      <h1 class="text-md-h3 text-h5">Webinar and Courses</h1>
+      <h1 class="text-md-h3 text-h4 text-center">Webinar and Courses</h1>
     </div>
       <WebinarCard />
 </template>

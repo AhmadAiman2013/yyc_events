@@ -1,17 +1,34 @@
 <template>
   <v-container>
-    <v-row class="d-flex justify-space-between align-center mb-6" style="height: 50px;">
 
+    <v-row class="d-none d-md-flex justify-space-between align-center mb-6" style="height: 50px;">
       <v-col cols="6" class="d-flex align-center">
         <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
-        <v-btn @click="clearSearch" class="ml-2">Clear</v-btn>
+        <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
       </v-col>
 
       <v-col cols="auto" class="d-flex align-center">
         <v-label class="mr-2">Date</v-label>
         <v-btn-toggle v-model="sortOrder" dense>
-          <v-btn value="asc">Asc</v-btn>
-          <v-btn value="desc">Desc</v-btn>
+          <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
+          <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
+        </v-btn-toggle>
+      </v-col>
+    </v-row>
+
+    <v-row class="d-md-none" >
+      <v-col cols="12" class="d-flex align-center" style="height: 50px;" >
+        <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
+        <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row class="d-md-none" >
+      <v-col cols="12" class="d-flex  justify-center align-center" style="height: 50px;">
+        <v-label class="mr-2" >Date</v-label>
+        <v-btn-toggle v-model="sortOrder" dense>
+          <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
+          <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
         </v-btn-toggle>
       </v-col>
     </v-row>
@@ -19,8 +36,19 @@
     <v-row>
       <v-col v-for="(item) in paginatedItems" :key="item.id" cols="12" md="6" class="mb-3">
         <v-lazy :min-height="200" :options="{ threshold: 0.5 }" transition="fade-transition">
-          <v-card :title="item.title" :subtitle="item.date" :text="item.description" variant="tonal" :elevation="9"
+          <v-card variant="tonal" :elevation="9"
             style="min-height: 200px;" cover>
+            <v-card-item>
+              <v-card-title>
+                <h2 class="text-md-h6 text-wrap text-h6">{{ item.title }}</h2>
+              </v-card-title>
+              <v-card-subtitle>
+                <p>{{ item.date }}</p>
+              </v-card-subtitle>
+            </v-card-item>
+            <v-card-text>
+              <p>{{ item.description }}</p>
+            </v-card-text>
           </v-card>
         </v-lazy>
       </v-col>
@@ -28,7 +56,7 @@
         <v-skeleton-loader height="200" />
       </v-col>
     </v-row>
-    <v-pagination class="mb-2" v-show="!isPending" v-model="currentPage" :length="totalPages" :total-visible="4"
+    <v-pagination aria-label="Pagination control for navigation system" class="mb-2" v-show="!isPending" v-model="currentPage" :length="totalPages" :total-visible="4"
       :size="paginationSize" @update:model-value="scrollToTop" />
   </v-container>
 
