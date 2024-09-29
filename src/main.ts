@@ -30,7 +30,7 @@ app.use(VueQueryPlugin)
 app.use(router)
 app.use(VueGtag, {
   config: {
-    id: "G-KK1953NJDK"
+    id: import.meta.env.VITE_GA_MEASUREMENT_ID
   },
   router
 })
