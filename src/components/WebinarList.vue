@@ -135,29 +135,25 @@ const parseDateString = (dateString: string) => {
 };
 
 const filteredAndSortedItems = computed(() => {
-  let result = data.value?.data ?? []
-
+  let result = data.value?.data ?? [];
 
   if (filterName.value) {
     result = result.filter(item =>
       item.title.toLowerCase().includes(filterName.value.toLowerCase())
     );
-    currentPage.value = 1
+    currentPage.value = 1;
   }
 
-
   if (sortOrder.value) {
-    result.sort((a, b) => {
+    return [...result].sort((a, b) => {
       const dateA = parseDateString(a.date);
       const dateB = parseDateString(b.date);
       return sortOrder.value === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
     });
-    currentPage.value = 1
   }
 
   return result;
 });
-
 const paginatedItems = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   return filteredAndSortedItems.value.slice(start, start + itemsPerPage);
