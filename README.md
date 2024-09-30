@@ -48,4 +48,4 @@ npm run build
 ```
 The static files will be generated and placed in the dist folder.
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+(Repeat for yarn, pnpm, and bun with respective commands.)
