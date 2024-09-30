@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <v-main style="min-height: 300px;" class="text-deep-purple-lighten-1">
-      <div class="d-flex justify-center pa-1 mt-3">
+      <header class="d-flex justify-center pa-1 mt-3">
         <RouterLink to="/" >
           <h1 class="text-md-h3 text-h4 text-center">Webinar and Courses</h1>
         </RouterLink>
-      </div>
+      </header>
       <RouterView />
     </v-main>
     <VueQueryDevtools />

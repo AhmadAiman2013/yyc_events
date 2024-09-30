@@ -1,57 +1,62 @@
 <template>
   <v-container>
 
-    <v-row class="d-none d-md-flex justify-space-between align-center mb-6" style="height: 50px;">
-      <v-col cols="6" class="d-flex align-center">
-        <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
-        <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
-      </v-col>
+    <section>
+      <v-row class="d-none d-md-flex justify-space-between align-center mb-6" style="height: 50px;">
+        <v-col cols="6" class="d-flex align-center">
+          <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
+          <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
+        </v-col>
 
-      <v-col cols="auto" class="d-flex align-center">
-        <v-label class="mr-2">Date</v-label>
-        <v-btn-toggle v-model="sortOrder" dense>
-          <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
-          <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
-        </v-btn-toggle>
-      </v-col>
-    </v-row>
+        <v-col cols="auto" class="d-flex align-center">
+          <v-label class="mr-2">Date</v-label>
+          <v-btn-toggle v-model="sortOrder" dense>
+            <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
+            <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row>
+    </section>
 
-    <v-row class="d-md-none" >
-      <v-col cols="12" class="d-flex align-center" style="height: 50px;" >
-        <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
-        <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
-      </v-col>
-    </v-row>
+    <section>
+      <v-row class="d-md-none" >
+        <v-col cols="12" class="d-flex align-center" style="height: 50px;" >
+          <v-text-field label="Filter by name" placeholder="Science, Law, Computer" v-model="filterName"></v-text-field>
+          <v-btn @click="clearSearch" class="ml-2" aria-label="Clear search">Clear</v-btn>
+        </v-col>
+      </v-row>
 
-    <v-row class="d-md-none" >
-      <v-col cols="12" class="d-flex  justify-center align-center" style="height: 50px;">
-        <v-label class="mr-2" >Date</v-label>
-        <v-btn-toggle v-model="sortOrder" dense>
-          <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
-          <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
-        </v-btn-toggle>
-      </v-col>
-    </v-row>
+      <v-row class="d-md-none" >
+        <v-col cols="12" class="d-flex  justify-center align-center" style="height: 50px;">
+          <v-label class="mr-2" >Date</v-label>
+          <v-btn-toggle v-model="sortOrder" dense>
+            <v-btn value="asc" aria-label="Ascending Date">Asc</v-btn>
+            <v-btn value="desc" aria-label="Descending date">Desc</v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row>
+    </section>
 
-    <v-row v-if="paginatedItems.length !== 0">
-      <v-col v-for="(item) in paginatedItems" :key="item.id" cols="12" md="6" class="mb-3">
-        <v-lazy :min-height="200" :options="{ threshold: 0.5 }" transition="fade-transition">
-          <v-hover
-          v-slot="{ isHovering, props }"
-          close-delay="200"
-          >
+    <section>
+      <v-row v-if="paginatedItems.length !== 0">
+        <v-col v-for="(item) in paginatedItems" :key="item.id" cols="12" md="6" class="mb-3">
+          <v-lazy :min-height="200" :options="{ threshold: 0.5 }" transition="fade-transition">
+            <v-hover
+            v-slot="{ isHovering, props }"
+            close-delay="200"
+            >
             <v-card
-              variant="tonal"
-              :elevation="9"
-              :style="{
-                minHeight: '200px',
-                backgroundColor: isHovering ? '#7E57C2' : 'inherit'
+            variant="tonal"
+            :elevation="9"
+            :style="{
+              minHeight: '200px',
+              backgroundColor: isHovering ? '#7E57C2' : 'inherit'
               }"
               cover
               :class="{ 'on-hover': isHovering }"
               v-bind="props"
               @click="redirectToWebinar(item.id)"
-            >
+              >
             <v-card-item>
               <v-card-title :style="{ color : isHovering ? '#EDE7F6' : 'inherit' }">
                 <h2 class="text-md-h6 text-wrap text-h6">{{ item.title }}</h2>
@@ -83,10 +88,12 @@
         </v-sheet>
       </v-col>
     </v-row>
+  </section>
 
-    <v-pagination v-show="!isPending && paginatedItems.length !== 0" aria-label="Pagination control for navigation system" class="mb-2"  v-model="currentPage" :length="totalPages" :total-visible="4"
+    <section>
+      <v-pagination v-show="!isPending && paginatedItems.length !== 0" aria-label="Pagination control for navigation system" class="mb-2"  v-model="currentPage" :length="totalPages" :total-visible="4"
       :size="paginationSize" @update:model-value="scrollToTop" />
-
+    </section>
   </v-container>
 
 </template>
