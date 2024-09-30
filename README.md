@@ -11,6 +11,15 @@ This is the demonstration of a fake webinar and course website using mock API se
 - **Sorting & Filtering**: Allows users to sort by date and filter by keyword
 - **Performance Optimization**: Implements lazy loading, data loader and pagination to enhance performance.
 
+## Tech Stack
+
+- **Frontend Framework**: Vue.js 3
+- **UI Library**: Vuetify
+- **Data Fetching**: @tanstack/vue-query
+- **SEO**: unHead
+- **Routing**: vue-router
+- **Analytics**: Google Analytic
+
 ## Installation
 
 ### Prerequisites
